@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: the <html> element gets `.dark` (set by the theme
+   script in layout.tsx so there is no flash of the wrong theme). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #f6f7fb;
+  --surface: #ffffff;
+  --surface-muted: #f1f3f9;
+  --foreground: #0f172a;
+  --muted-foreground: #5c6a83;
+  --border: #e3e7ef;
+  --border-strong: #d2d9e6;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-foreground: #ffffff;
+  --accent: #eef2ff;
+  --success: #15803d;
+  --success-soft: #dcfce7;
+  --warning: #b45309;
+  --warning-soft: #fef3c7;
+  --danger: #c2410c;
+  --danger-soft: #ffedd5;
+  --info: #0369a1;
+  --info-soft: #e0f2fe;
+  --ring: #6366f1;
+  --shadow-color: 220 40% 20%;
+}
+
+.dark {
+  --background: #080c17;
+  --surface: #0f1524;
+  --surface-muted: #161d30;
+  --foreground: #e8ecf6;
+  --muted-foreground: #97a3bb;
+  --border: #1e2637;
+  --border-strong: #2b3549;
+  --primary: #6366f1;
+  --primary-hover: #7c7ff5;
+  --primary-foreground: #ffffff;
+  --accent: #1b1f3b;
+  --success: #4ade80;
+  --success-soft: #052e16;
+  --warning: #fbbf24;
+  --warning-soft: #3a2a05;
+  --danger: #fb923c;
+  --danger-soft: #3b1503;
+  --info: #38bdf8;
+  --info-soft: #082f49;
+  --ring: #818cf8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-ring: var(--ring);
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.125rem;
+  --radius-2xl: 1.5rem;
+
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.12);
+  --shadow-popover: 0 12px 40px -12px rgb(15 23 42 / 0.28);
+
+  --animate-fade-in: fade-in 0.24s ease-out both;
+  --animate-slide-up: slide-up 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-overlay-in: overlay-in 0.2s ease-out both;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 26%, transparent);
+  }
+
+  /* Consistent, accessible form controls */
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@layer utilities {
+  .surface-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+  }
+
+  .skeleton {
+    background-image: linear-gradient(
+      90deg,
+      var(--surface-muted) 0%,
+      color-mix(in oklab, var(--surface-muted) 60%, var(--surface)) 40%,
+      var(--surface-muted) 80%
+    );
+    background-size: 400px 100%;
+    animation: var(--animate-shimmer);
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
