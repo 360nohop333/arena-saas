@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarGroup, Progress } from "@/components/ui/misc";
 import type { ActivityItem } from "@/lib/activity";
 import { PRIORITY_LABELS, STATUS_LABELS, type Priority, type TaskStatus } from "@/lib/constants";
-import { cn, priorityLabel, statusLabel, truncate } from "@/lib/utils";
+import { cn, priorityLabel, truncate } from "@/lib/utils";
 
 /* -------------------------------------------------------------------------- */
 /*                                 Stat cards                                  */
@@ -520,5 +520,3 @@ export function MiniTaskList({
     </Card>
   );
 }
-
-export { statusLabel };

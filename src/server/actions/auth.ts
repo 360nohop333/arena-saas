@@ -338,26 +338,6 @@ export async function acceptInviteCommand(input: { token: string }): Promise<Act
   }
 }
 
-/** Public invite details for the accept page (no secrets beyond the token). */
-export async function getInvitePreview(token: string) {
-  const [row] = await db
-    .select({
-      email: invites.email,
-      role: invites.role,
-      status: invites.status,
-      expiresAt: invites.expiresAt,
-      workspaceName: workspaces.name,
-      inviterName: users.name,
-    })
-    .from(invites)
-    .innerJoin(workspaces, eq(invites.workspaceId, workspaces.id))
-    .innerJoin(users, eq(invites.invitedById, users.id))
-    .where(eq(invites.token, token))
-    .limit(1);
-
-  return row ?? null;
-}
-
 /** Ensure workspace slugs stay unique without a race-prone pre-check. */
 async function uniqueSlug(
   tx: Parameters<Parameters<typeof db.transaction>[0]>[0],

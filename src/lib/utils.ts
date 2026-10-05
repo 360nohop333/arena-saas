@@ -52,10 +52,6 @@ export function slugify(value: string): string {
   );
 }
 
-export function pluralize(count: number, singular: string, plural = `${singular}s`): string {
-  return `${count} ${count === 1 ? singular : plural}`;
-}
-
 export function priorityLabel(priority: string): string {
   return PRIORITY_LABELS[priority as Priority] ?? priority;
 }
@@ -91,24 +87,3 @@ export function toDateInputValue(date: Date | string | null | undefined): string
   return new Date(value.getTime() - offset).toISOString().slice(0, 10);
 }
 
-/** Progress bar segments for the dashboard's status breakdown. */
-export function groupCount<T extends string>(items: T[]): Record<string, number> {
-  return items.reduce<Record<string, number>>((acc, item) => {
-    acc[item] = (acc[item] ?? 0) + 1;
-    return acc;
-  }, {});
-}
-
-export function safeJsonParse<T>(value: string | null | undefined, fallback: T): T {
-  if (!value) return fallback;
-  try {
-    return JSON.parse(value) as T;
-  } catch {
-    return fallback;
-  }
-}
-
-/** First validation message for a field, used for aria-describedby wiring. */
-export function errorId(field: string): string {
-  return `${field}-error`;
-}

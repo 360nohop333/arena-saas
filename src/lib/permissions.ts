@@ -19,16 +19,7 @@ export function canManageMember(actorRole: Role | string, targetRole: Role | str
   return WORKSPACE_ROLE_RANK[actorRole as Role] > WORKSPACE_ROLE_RANK[targetRole as Role];
 }
 
-/** Any member can work with projects and tasks; role only gates team/settings. */
-export function canEditProjectContent(role: Role | string): boolean {
-  return WORKSPACE_ROLE_RANK[role as Role] >= 1;
-}
-
 /** Deleting a project is destructive — admins and owners only. */
 export function canDeleteProject(role: Role | string): boolean {
   return canManageWorkspace(role);
-}
-
-export function isOwner(role: Role | string): boolean {
-  return role === "OWNER";
 }
